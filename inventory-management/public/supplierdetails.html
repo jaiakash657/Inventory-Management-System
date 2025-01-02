@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier 1  Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Supplier Details</div>
+        <nav class="navbar">
+            <a href="index.html">Main Menu</a>
+            <a href="additem.html">Add Item</a>
+            <a href="report.html">Reports</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </header>
+
+    <main class="center-box">
+        <h2>Supplier-Based Inventory</h2>
+        <p>View items supplied by each supplier and check stock levels.</p>
+        <button onclick="displaySupplierDetails()" class="button">View Supplier Details</button>
+        <div id="supplierDetailsResult"></div>
+
+        <script>
+            async function displaySupplierDetails() {
+                const supplierDetailsResult = document.getElementById('supplierDetailsResult');
+                supplierDetailsResult.textContent = 'Fetching supplier details...';
+
+                try {
+                    const response = await fetch('/suppliers');
+                    const data = await response.json();
+
+                    if (data.length === 0) {
+                        supplierDetailsResult.innerHTML = '<p>No supplier data available.</p>';
+                    } else {
+                        supplierDetailsResult.innerHTML = `
+                            <h2>Supplier Details</h2>
+                            <ul>
+                                ${data.map(supplier => `
+                                    <li>
+                                        <h3>${supplier.name}</h3>
+                                        <ul>
+                                            ${supplier.items.map(item => `<li>${item.item}: ${item.quantity}</li>`).join('')}
+                                        </ul>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error fetching supplier details:', error);
+                    supplierDetailsResult.innerHTML = '<p>Error fetching supplier details. Please try again later.</p>';
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>

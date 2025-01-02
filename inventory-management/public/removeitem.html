@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Item</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>Remove Item</h1>
+</header>
+
+<main class="center-box">
+    <p>Enter the name of the item you want to remove from the inventory.</p>
+    <form id="removeItemForm">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" required>
+        <button type="submit" class="button">Remove Item</button>
+    </form>
+    <div id="removeItemResult"></div>
+</main>
+
+<script>
+    document.getElementById('removeItemForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); 
+
+        const itemName = document.getElementById('itemName').value;
+
+        if (!itemName) {
+            document.getElementById('removeItemResult').textContent = 'Please enter an item name.';
+            return;
+        }
+
+        try {
+            document.getElementById('removeItemResult').textContent = 'Removing item...';
+
+            const response = await fetch('/removeitem', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ itemName }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('removeItemResult').textContent = `Success: ${result.message}`;
+            } else {
+                throw new Error(result.error || 'Failed to remove item');
+            }
+        } catch (error) {
+            document.getElementById('removeItemResult').textContent = `Error: ${error.message}`;
+        }
+
+        document.getElementById('itemName').value = '';
+    });
+</script>
+
+</body>
+</html>

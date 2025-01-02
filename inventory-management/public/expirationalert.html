@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-of-Day Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>End-of-Day Analysis</h1>
+    </header>
+
+    <main class="center-box">
+        <p>Analyze daily inventory levels and generate low-stock reports.</p>
+        <button onclick="generateEndOfDayReport()" class="button">Run Analysis</button>
+        <div id="endOfDayResult"></div>
+
+        <script>
+            async function generateEndOfDayReport() {
+                try {
+                    const response = await fetch('/endofday');
+                    const data = await response.json();
+
+                    const endOfDayResult = document.getElementById('endOfDayResult');
+                    endOfDayResult.innerHTML = `
+                        <h2>Low-Stock Items</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Threshold</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(item => `
+                                    <tr>
+                                        <td>${item.item}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>${item.threshold}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                } catch (error) {
+                    console.error('Error fetching end-of-day report:', error);
+                    const endOfDayResult = document.getElementById('endOfDayResult');
+                    endOfDayResult.innerHTML = '<p>Error generating report. Please try again later.</p>';
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>

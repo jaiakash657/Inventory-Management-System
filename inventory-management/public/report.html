@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Inventory Dashboard</div>
+        <nav class="navbar">
+            <a href="index.html">Main Menu</a>
+            <a href="additem.html">Add Item</a>
+            <a href="report.html">Reports</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="center-box">
+            <h2>Reports</h2>
+            <label for="reportType">Select Report Type:</label> <br>
+            <select id="reportType">
+                <option value="inventorySummary">Inventory Summary</option>
+                <option value="salesReport">Sales Report</option>
+                <option value="lowStockReport">Low Stock Report</option>
+                <option value="customReport">Custom Report</option>
+            </select>
+            <br>
+            <button onclick="generateReport()">Generate Report</button>
+            <div id="reportResult"></div>
+        </div>
+    </main>
+
+    <script>
+        function generateReport() {
+            const reportType = document.getElementById('reportType').value;
+            const reportResult = document.getElementById('reportResult');
+
+            fetch(`/generateReport/${reportType}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Display the report data in a user-friendly format, e.g., table, chart
+                    reportResult.innerHTML = `
+                        <h2>${reportType}</h2>
+                        `;
+                })
+                .catch(error => {
+                    console.error('Error generating report:', error);
+                    reportResult.innerHTML = 'Error generating report. Please try again later.';
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Prediction</h1>
+    </header>
+
+    <main class="center-box">
+        <p>Predict future inventory needs based on historical data.</p>
+        <button onclick="showGraph()" class="button">Show Prediction Chart</button>
+
+        <h2>Prediction Chart</h2>
+
+        <br>
+        <br>
+
+        <img src="Figure_1.png" alt="Prediction Plot" style="display:block;">
+
+        <script>
+            function showGraph() {
+                const predictionImage = document.getElementById('predictionImage');
+                predictionImage.src = '/graph'; 
+                predictionImage.style.display = 'block';
+            }
+        </script>
+    </main>
+</body>
+</html>

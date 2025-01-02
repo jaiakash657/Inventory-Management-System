@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelf Life Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Shelf Life Management</h1>
+    </header>
+
+    <main class="center-box">
+        <p>Track item shelf life to ensure usage before expiration.</p>
+        <button onclick="checkShelfLife()" class="button">Check Shelf Life</button>
+        <div id="shelfLifeResult"></div>
+
+        <script>
+            async function checkShelfLife() {
+                const shelfLifeResult = document.getElementById('shelfLifeResult');
+                shelfLifeResult.textContent = 'Checking shelf life...';
+
+                try {
+                    const response = await fetch('/shelflife');
+                    const data = await response.json();
+
+                    if (data.length === 0) {
+                        shelfLifeResult.innerHTML = '<p>No items are nearing expiration.</p>';
+                    } else {
+                        shelfLifeResult.innerHTML = `
+                            <h2>Items Approaching Expiration</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Days Remaining</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.map(item => `
+                                        <tr>
+                                            <td>${item.item}</td>
+                                            <td>${item.shelfLife}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error fetching shelf life data:', error);
+                    shelfLifeResult.innerHTML = '<p>Error checking shelf life. Please try again later.</p>';
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>

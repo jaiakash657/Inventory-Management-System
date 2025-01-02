@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>End-of-Day Analysis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>End-of-Day Analysis</h1>
+  </header>
+
+  <main class="center-box">
+    <p>Analyze daily inventory levels and generate low-stock reports.</p>
+    <button onclick="fetchReport()" class="button">Run Analysis</button>
+    <div id="endOfDayResult"></div> 
+  </main>
+
+  <script>
+    async function fetchReport() {
+        try {
+            const response = await fetch('/endofday');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const reportDiv = document.getElementById('endOfDayResult');
+            reportDiv.innerHTML = ''; 
+
+            if (!Array.isArray(data) || data.length === 0) {
+                reportDiv.innerHTML = '<p>No items to display for the end-of-day report.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const itemInfo = document.createElement('div');
+                itemInfo.innerHTML = `
+                    <p><strong>Item:</strong> ${item.item}</p>
+                    <p><strong>Quantity:</strong> ${item.quantity}</p>
+                    <p><strong>Threshold:</strong> ${item.threshold}</p>
+                    <hr>
+                `;
+                reportDiv.appendChild(itemInfo);
+            });
+        } catch (error) {
+            console.error('Error fetching report:', error);
+            const reportDiv = document.getElementById('endOfDayResult');
+            reportDiv.innerHTML = '<p style="color: red;">Error fetching report. Please try again later.</p>';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo">Inventory Management System</h1>
+        <nav class="navbar">
+            <a href="additem.html" target="_blank">Add Item</a>
+            <a href="removeitem.html" target="_blank">Remove Item</a>
+            <a href="updateitem.html" target="_blank">Update Item</a>
+            <a href="report.html" target="_blank">Reports</a>
+            <a href="settings.html" target="_blank">Settings</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>End-of-Day Analysis</h3>
+                    <p>Analyze daily inventory levels and generate low-stock reports.</p>
+                    <a href="endofday.html" class="button" target="_blank">Run Analysis</a>
+                </div>
+                <div class="card">
+                    <h3>Threshold-Based Reporting</h3>
+                    <p>Monitor items that fall below threshold levels and notify relevant parties.</p>
+                    <a href="thresholdreport.html" class="button" target="_blank">Check Thresholds</a>
+                </div>
+                <div class="card">
+                    <h3>Prediction</h3>
+                    <p>Predict future inventory needs based on historical data.</p>
+                    <a href="prediction.html" class="button" target="_blank">Predict Needs</a>
+                </div>
+                <div class="card">
+                    <h3>Shelf Life Management</h3>
+                    <p>Track item shelf life to ensure usage before expiration.</p>
+                    <a href="shelflife.html" class="button" target="_blank">Manage Shelf Life</a>
+                </div>
+                <div class="card">
+                    <h3>Expiration Alerts</h3>
+                    <p>Get alerts for items nearing expiration.</p>
+                    <a href="expirationalert.html" class="button" target="_blank">Check Expirations</a>
+                </div>
+                <div class="card">
+                    <h3>Current Inventory</h3>
+                    <p>Check the current status of Inventory.</p>
+                    <a href="currentinventory.html" class="button" target="_blank">Check Status</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="reports" class="reports">
+            <h2>Reports</h2>
+            <div class="report-card">
+                <a href="supplierdetails.html" target="_blank">
+                    <h3>Supplier Details</h3>
+                    <p>Manage and view supplier details.</p>
+                </a>
+            </div>
+            <div class="report-card">
+                <a href="recipebaseddisplay.html" target="_blank">
+                    <h3>Recipe-Based Display</h3>
+                    <p>View items grouped by recipe.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="../server.js"></script>
+</body>
+</html>

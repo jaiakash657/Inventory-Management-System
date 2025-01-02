@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threshold-Based Reporting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Threshold-Based Reporting</h1>
+    </header>
+
+    <main class="center-box">
+        <p>Monitor items that fall below threshold levels and notify relevant parties.</p>
+        <button onclick="checkThresholds()" class="button">Check Thresholds</button>
+        <div id="thresholdResult"></div>
+
+        <script>
+            async function checkThresholds() {
+                const thresholdResult = document.getElementById('thresholdResult');
+                thresholdResult.textContent = 'Fetching data...';
+
+                try {
+                    const response = await fetch('/thresholds');
+                    const data = await response.json();
+
+                    if (data.error) {
+                        thresholdResult.innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        thresholdResult.innerHTML = `
+                            <h2>Threshold Results</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Total Sales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.map(item => `
+                                        <tr>
+                                            <td>${item.category}</td>
+                                            <td>${item.sales}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error fetching thresholds:', error);
+                    thresholdResult.textContent = 'Error fetching data. Please try again later.';
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>
