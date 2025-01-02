@@ -38,9 +38,3 @@ A robust **Inventory Management System** designed to streamline inventory contro
 - **Back-end**: Node.js for data processing and API handling.
 
 ---
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/inventory-management-system.git
