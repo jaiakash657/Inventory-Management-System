@@ -2,7 +2,7 @@
 
 A robust **Inventory Management System** designed to streamline inventory control and provide actionable insights for efficient operations. This project leverages modern web technologies, combining user-friendly design with powerful back-end capabilities.
 
-## Features
+## Features of this project
 
 ### Dashboard
 - **Overview of Inventory Metrics**: Daily analysis, threshold reporting, and predictive inventory needs.
